@@ -4,11 +4,21 @@ A web server serving local static files.
 
 ## Installation
 
-You can clone this project and build it using `swift build -c release` but the easiest way to install this is via [mint](https://github.com/yonaskolb/Mint).
+### Using Mint
 
-```swift
+The easiest way to install swift-web is via [mint](https://github.com/yonaskolb/Mint).
+
+```sh
 mint install adam-fowler/swift-web
 ```
+
+### Using Swift Package Manager
+
+```sh
+git clone https://github.com/adam-fowler/swift-web
+swift build -c release
+```
+And then copy `.build/release/swift-web` to a folder in your $PATH
 
 ## Running
 
