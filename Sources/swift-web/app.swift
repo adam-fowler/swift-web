@@ -14,7 +14,7 @@ struct WebServer: ParsableCommand {
         let app = HBApplication(
             configuration: .init(
                 address: .hostname("127.0.0.1", port: self.port),
-                serverName: "WebServer"
+                serverName: "swift-web"
             )
         )
         app.middleware.add(HBFileMiddleware(self.folder, application: app))
