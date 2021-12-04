@@ -5,7 +5,7 @@ let package = Package(
     name: "swift-web",
     products: [.executable(name: "swift-web", targets: ["swift-web"])],
     dependencies: [
-        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "0.15.0"),
+        .package(url: "https://github.com/hummingbird-project/hummingbird.git", from: "0.15.2"),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.0.0")
     ],
     targets: [
