@@ -20,7 +20,7 @@ struct WebServer: ParsableCommand {
                 serverName: "swift-web"
             )
         )
-        app.middleware.add(HBFileMiddleware(self.folder, application: app))
+        app.middleware.add(HBFileMiddleware(self.folder, searchForIndexHtml: true, application: app))
         app.middleware.add(HBLogRequestsMiddleware(.info))
         try app.start()
         app.wait()
