@@ -1,9 +1,9 @@
 import ArgumentParser
 import Hummingbird
-import HummingbirdFoundation
+import Logging
 
 @main
-struct WebServer: ParsableCommand {
+struct WebServer: AsyncParsableCommand {
     @Option(name: .shortAndLong)
     var hostname: String = "127.0.0.1"
 
@@ -13,16 +13,19 @@ struct WebServer: ParsableCommand {
     @Argument
     var folder: String = "."
 
-    func run() throws {
+    func run() async throws {
+        let logger = Logger(label: "swift-web")
+        let router = HBRouter()
+        router.middlewares.add(HBFileMiddleware(self.folder, searchForIndexHtml: true, logger: logger))
+        router.middlewares.add(HBLogRequestsMiddleware(.info))
         let app = HBApplication(
+            router: router,
             configuration: .init(
                 address: .hostname(self.hostname, port: self.port),
                 serverName: "swift-web"
-            )
+            ),
+            logger: logger
         )
-        app.middleware.add(HBFileMiddleware(self.folder, searchForIndexHtml: true, application: app))
-        app.middleware.add(HBLogRequestsMiddleware(.info))
-        try app.start()
-        app.wait()
+        try await app.runService()
     }
 }
