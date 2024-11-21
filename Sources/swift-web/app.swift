@@ -15,10 +15,10 @@ struct WebServer: AsyncParsableCommand {
 
     func run() async throws {
         let logger = Logger(label: "swift-web")
-        let router = HBRouter()
-        router.middlewares.add(HBFileMiddleware(self.folder, searchForIndexHtml: true, logger: logger))
-        router.middlewares.add(HBLogRequestsMiddleware(.info))
-        let app = HBApplication(
+        let router = Router()
+        router.middlewares.add(FileMiddleware(self.folder, searchForIndexHtml: true, logger: logger))
+        router.middlewares.add(LogRequestsMiddleware(.info))
+        let app = Application(
             router: router,
             configuration: .init(
                 address: .hostname(self.hostname, port: self.port),
